@@ -11,7 +11,7 @@ public class RBinding {
     /**
      * Defines the version of the RBinding.
      */
-    public static final String VERSION = "0.0.1-SNAPSHOT";
+    public static final String VERSION = "0.0.1";
 
     /**
      * Constructs an object representing an R Binding.
