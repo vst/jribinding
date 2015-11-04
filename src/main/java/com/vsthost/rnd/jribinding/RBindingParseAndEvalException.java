@@ -11,8 +11,8 @@ package com.vsthost.rnd.jribinding;
 @SuppressWarnings("serial")
 public class RBindingParseAndEvalException extends Exception {
 	/**
-	 * @param message
-	 * @param cause
+	 * @param message The exception message.
+	 * @param cause The underlying cause of the exception.
 	 */
 	public RBindingParseAndEvalException(String message, Throwable cause) {
 		super(message, cause);

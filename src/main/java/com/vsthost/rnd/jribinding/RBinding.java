@@ -18,7 +18,7 @@ public class RBinding {
      *
      * @param args Arguments to R.
      * @param callbacks R Engine callback.
-     * @throws RBindingBootstrapException
+     * @throws RBindingBootstrapException Indicates that REngine could not be obtained properly.
      */
     private RBinding(String[] args, REngineCallbacks callbacks) throws RBindingBootstrapException {
         // Check if an REngine has been created before. If not,
@@ -57,7 +57,7 @@ public class RBinding {
      *
      * @param expression the expression to be parsed and evaluated.
      * @return the return value of the evaluation.
-     * @throws RBindingParseAndEvalException
+     * @throws RBindingParseAndEvalException Indicates that parsing and/or evaluating the R expression has failed.
      */
     public REXP evalExpr(String expression) throws RBindingParseAndEvalException {
         try {
@@ -75,8 +75,6 @@ public class RBinding {
      * Returns the R version.
      *
      * @return The R version.
-     * @throws RBindingParseAndEvalException
-     * @throws REXPMismatchException
      */
     public String getRVersion () {
         try {
@@ -96,7 +94,7 @@ public class RBinding {
      *
      * @param symbol     the symbol to assign to.
      * @param expression the expression to be parsed and evaluated.
-     * @throws RBindingParseAndEvalException
+     * @throws RBindingParseAndEvalException Indicates that parsing and/or evaluating the R expression has failed.
      */
     public void assignEvalExpr(String symbol, String expression) throws RBindingParseAndEvalException {
         this.evalExpr(symbol + " <- eval(parse(text=\"" + expression.replace("\"", "\\\"") + "\"))");
@@ -105,7 +103,8 @@ public class RBinding {
     /**
      * Loads a library provided as a string.
      *
-     * @throws RBindingLibraryLoadException
+     * @param libraryName Defines the name of the library to be loaded.
+     * @throws RBindingLibraryLoadException Indicates that the library could not be loaded properly.
      */
     public void loadLibrary(String libraryName) throws RBindingLibraryLoadException {
         try {
@@ -119,7 +118,8 @@ public class RBinding {
     /**
      * Loads a script of which its path provided as a string.
      *
-     * @throws RBindingScriptLoadException
+     * @param scriptPath Defines the path of the source to be loaded.
+     * @throws RBindingScriptLoadException Indicates that the script could not be sourced properly.
      */
     public void loadScript(String scriptPath) throws RBindingScriptLoadException {
         try {
@@ -149,7 +149,7 @@ public class RBinding {
      *
      * @param callbacks The R engine callback to attach.
      * @return An RBinding instance.
-     * @throws RBindingBootstrapException
+     * @throws RBindingBootstrapException Indicates that REngine could not be obtained properly.
      */
     public static synchronized RBinding getInstance(REngineCallbacks callbacks) throws RBindingBootstrapException {
         return new RBinding(new String[] {"--vanilla", "--quiet"}, callbacks);
@@ -159,7 +159,7 @@ public class RBinding {
      * Returns an R binding with standard output from R disabled.
      *
      * @return An RBinding instance.
-     * @throws RBindingBootstrapException
+     * @throws RBindingBootstrapException Indicates that REngine could not be obtained properly.
      */
     public static synchronized RBinding getInstance() throws RBindingBootstrapException {
         return RBinding.getInstance(false);
@@ -170,7 +170,7 @@ public class RBinding {
      *
      * @param stdout Indicates if standard output from R is enabled or disabled.
      * @return An RBinding instance.
-     * @throws RBindingBootstrapException
+     * @throws RBindingBootstrapException Indicates that REngine could not be obtained properly.
      */
     public static synchronized RBinding getInstance(boolean stdout) throws RBindingBootstrapException {
         return RBinding.getInstance(stdout ? new REngineStdOutput() : null);
