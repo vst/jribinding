@@ -1,0 +1,1 @@
+cat("People are a prototype.\n")
